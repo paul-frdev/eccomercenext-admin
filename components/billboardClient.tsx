@@ -1,22 +1,29 @@
 'use client'
 
-import React from 'react'
+import React, { FC } from 'react'
 import { Heading } from './heading'
 import { Button } from './ui/button'
 import { Plus } from 'lucide-react'
 import { Separator } from './ui/separator'
 import { useParams, useRouter } from 'next/navigation'
+import { Billboard } from '@prisma/client'
+import { BillboardColumn, columns } from './columns'
+import { DataTable } from './dataTable'
+import { ApiList } from './apiList'
 
-export const BillboardClient = () => {
+
+interface BillboardClientProps {
+  data: BillboardColumn[]
+}
+export const BillboardClient: FC<BillboardClientProps> = ({ data }) => {
   const router = useRouter()
   const params = useParams()
-
 
   return (
     <>
       <div className='flex items-center justify-between'>
         <Heading
-          title='Billboards (0)'
+          title={`Billboards (${data.length})`}
           description='Manage billboards for your store'
         />
         <Button onClick={() => router.push(`/${params.storeId}/billboards/new`)}>
@@ -25,6 +32,10 @@ export const BillboardClient = () => {
         </Button>
       </div>
       <Separator />
+      <DataTable searchKey='label' columns={columns} data={data} />
+      <Heading title='API' description='API calls fro BIllboards' />
+      <Separator />
+      <ApiList entityIdName='billboardId' entityName='billboards' />
     </>
   )
 }
