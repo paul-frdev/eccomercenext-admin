@@ -1,6 +1,5 @@
 import { BillboardForm } from '@/components/forms/billboardForm';
 import prismadb from '@/lib/prismadb';
-import { Billboard } from '@prisma/client';
 
 
 const BillboardPage = async ({ params }: { params: { billboardId: string } }) => {
@@ -9,7 +8,7 @@ const BillboardPage = async ({ params }: { params: { billboardId: string } }) =>
     where: {
       id: params.billboardId
     }
-  }) as any;
+  });
 
 
   return (
