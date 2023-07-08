@@ -1,22 +1,21 @@
-'use client'
+'use client';
 
-import React, { FC } from 'react'
-import { Heading } from './heading'
-import { Button } from './ui/button'
-import { Plus } from 'lucide-react'
-import { Separator } from './ui/separator'
-import { useParams, useRouter } from 'next/navigation'
-import { BillboardColumn, columns } from './columns'
-import { DataTable } from './dataTable'
-import { ApiList } from './apiList'
-
+import React, { FC } from 'react';
+import { Heading } from './heading';
+import { Button } from './ui/button';
+import { Plus } from 'lucide-react';
+import { Separator } from './ui/separator';
+import { useParams, useRouter } from 'next/navigation';
+import { BillboardColumn, columns } from './columns';
+import { DataTable } from './dataTable';
+import { ApiList } from './apiList';
 
 interface BillboardClientProps {
-  data: BillboardColumn[]
+  data: BillboardColumn[];
 }
 export const BillboardClient: FC<BillboardClientProps> = ({ data }) => {
-  const router = useRouter()
-  const params = useParams()
+  const router = useRouter();
+  const params = useParams();
 
   return (
     <>
@@ -25,7 +24,9 @@ export const BillboardClient: FC<BillboardClientProps> = ({ data }) => {
           title={`Billboards (${data.length})`}
           description='Manage billboards for your store'
         />
-        <Button onClick={() => router.push(`/${params.storeId}/billboards/new`)}>
+        <Button
+          onClick={() => router.push(`/${params.storeId}/billboards/new`)}
+        >
           <Plus className=' mr-2 w-4 h-4' />
           Add new
         </Button>
@@ -36,5 +37,5 @@ export const BillboardClient: FC<BillboardClientProps> = ({ data }) => {
       <Separator />
       <ApiList entityIdName='billboardId' entityName='billboards' />
     </>
-  )
-}
+  );
+};

@@ -1,4 +1,4 @@
-import { create } from 'zustand'
+import { create } from 'zustand';
 
 interface StoreModalProps {
   isOpen: boolean;
@@ -9,5 +9,5 @@ interface StoreModalProps {
 export const useStoreModal = create<StoreModalProps>((set) => ({
   isOpen: false,
   onOpen: () => set({ isOpen: true }),
-  onClose: () => set({ isOpen: false })
-}))
+  onClose: () => set({ isOpen: false }),
+}));

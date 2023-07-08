@@ -5,7 +5,12 @@ import { Store } from '@prisma/client';
 import { useStoreModal } from '@/hooks/useStoreModal';
 import { useParams, useRouter } from 'next/navigation';
 import { Button } from './ui/button';
-import { Check, ChevronsUpDown, PlusCircle, Store as StoreIcon } from 'lucide-react';
+import {
+  Check,
+  ChevronsUpDown,
+  PlusCircle,
+  Store as StoreIcon,
+} from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
   Command,
@@ -96,8 +101,8 @@ export const StoreSwitcher = ({
             <CommandGroup>
               <CommandItem
                 onSelect={() => {
-                  setOpen(false)
-                  storeModal.onOpen()
+                  setOpen(false);
+                  storeModal.onOpen();
                 }}
                 className='cursor-pointer'
               >

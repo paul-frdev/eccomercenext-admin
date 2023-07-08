@@ -1,23 +1,21 @@
-'use client'
+'use client';
 
-import React, { FC } from 'react'
-import { SizeColumn, sizeColumns } from './sizeColumns'
-import { useParams, useRouter } from 'next/navigation'
-import { Heading } from './heading'
-import { Button } from './ui/button'
-import { Plus } from 'lucide-react'
-import { Separator } from '@radix-ui/react-separator'
-import { DataTable } from './dataTable'
-import { ApiList } from './apiList'
-
+import React, { FC } from 'react';
+import { SizeColumn, sizeColumns } from './sizeColumns';
+import { useParams, useRouter } from 'next/navigation';
+import { Heading } from './heading';
+import { Button } from './ui/button';
+import { Plus } from 'lucide-react';
+import { Separator } from '@radix-ui/react-separator';
+import { DataTable } from './dataTable';
+import { ApiList } from './apiList';
 
 interface SizeClientProps {
-  data: SizeColumn[]
+  data: SizeColumn[];
 }
 export const SizeClient: FC<SizeClientProps> = ({ data }) => {
-  const router = useRouter()
-  const params = useParams()
-
+  const router = useRouter();
+  const params = useParams();
 
   return (
     <>
@@ -37,5 +35,5 @@ export const SizeClient: FC<SizeClientProps> = ({ data }) => {
       <Separator />
       <ApiList entityIdName='sizeId' entityName='sizes' />
     </>
-  )
-}
+  );
+};

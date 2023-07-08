@@ -1,0 +1,7 @@
+/node_modules
+/prisma
+middleware.ts
+next-env.d.ts
+postcss.config.js
+tailwind.config.js
+.env

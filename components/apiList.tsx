@@ -1,9 +1,8 @@
-'use client'
+'use client';
 import { useOrigin } from '@/hooks/useOrigin';
 import { useParams } from 'next/navigation';
-import React, { FC } from 'react'
+import React, { FC } from 'react';
 import { ApiAlert } from './apiAlert';
-
 
 interface ApiListProps {
   entityName: string;
@@ -13,8 +12,7 @@ export const ApiList: FC<ApiListProps> = ({ entityIdName, entityName }) => {
   const params = useParams();
   const origin = useOrigin();
 
-  const BaseUrl = `${origin}/api/${params.storeId}`
-
+  const BaseUrl = `${origin}/api/${params.storeId}`;
 
   return (
     <>
@@ -23,7 +21,7 @@ export const ApiList: FC<ApiListProps> = ({ entityIdName, entityName }) => {
         variant='public'
         description={`${BaseUrl}/${entityName}`}
       />
-       <ApiAlert
+      <ApiAlert
         title='GET'
         variant='public'
         description={`${BaseUrl}/${entityName}/{${entityIdName}}`}
@@ -38,11 +36,11 @@ export const ApiList: FC<ApiListProps> = ({ entityIdName, entityName }) => {
         variant='admin'
         description={`${BaseUrl}/${entityName}/{${entityIdName}}`}
       />
-       <ApiAlert
+      <ApiAlert
         title='DELETE'
         variant='admin'
         description={`${BaseUrl}/${entityName}/{${entityIdName}}`}
       />
     </>
-  )
-}
+  );
+};

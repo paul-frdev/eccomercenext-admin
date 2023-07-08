@@ -22,7 +22,13 @@ import { toast } from 'react-hot-toast';
 import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
 import { AlertModal } from '../modals/alertModal';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../ui/select';
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -35,7 +41,10 @@ interface CategoryFormProps {
   billboards: Billboard[];
 }
 
-export const CategoryForm: FC<CategoryFormProps> = ({ initialData, billboards }) => {
+export const CategoryForm: FC<CategoryFormProps> = ({
+  initialData,
+  billboards,
+}) => {
   const params = useParams();
   const router = useRouter();
 

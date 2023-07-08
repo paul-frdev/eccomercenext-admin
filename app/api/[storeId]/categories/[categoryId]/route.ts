@@ -7,7 +7,6 @@ export async function GET(
   { params }: { params: { categoryId: string } }
 ) {
   try {
-
     if (!params.categoryId) {
       return new NextResponse('category id is required', { status: 400 });
     }

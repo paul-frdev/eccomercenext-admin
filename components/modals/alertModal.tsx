@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { FC, useEffect, useState } from 'react';
 import { Modal } from '../ui/modal';
@@ -10,12 +10,17 @@ interface AlertModalProps {
   isOpen: boolean;
   loading: boolean;
 }
-export const AlertModal: FC<AlertModalProps> = ({ onClose, onConfirm, isOpen, loading }) => {
-  const [isMounted, setIsMounted] = useState(false)
+export const AlertModal: FC<AlertModalProps> = ({
+  onClose,
+  onConfirm,
+  isOpen,
+  loading,
+}) => {
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true)
-  }, [])
+    setIsMounted(true);
+  }, []);
 
   if (!isMounted) {
     return null;
@@ -37,5 +42,5 @@ export const AlertModal: FC<AlertModalProps> = ({ onClose, onConfirm, isOpen, lo
         </Button>
       </div>
     </Modal>
-  )
-}
+  );
+};

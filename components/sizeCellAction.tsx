@@ -21,18 +21,17 @@ interface SizeCellActionProps {
 }
 
 export const SizeCellAction: FC<SizeCellActionProps> = ({ data }) => {
-
   const router = useRouter();
   const params = useParams();
 
   const [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const onCopy = (id: string) => {
-    navigator.clipboard.writeText(id)
+    navigator.clipboard.writeText(id);
 
-    toast.success('Size id copied to the clipboard')
-  }
+    toast.success('Size id copied to the clipboard');
+  };
 
   const onDelete = async () => {
     try {
@@ -47,7 +46,6 @@ export const SizeCellAction: FC<SizeCellActionProps> = ({ data }) => {
       setOpen(false);
     }
   };
-
 
   return (
     <>
@@ -70,7 +68,9 @@ export const SizeCellAction: FC<SizeCellActionProps> = ({ data }) => {
             <Copy className='h-4 w-4 mr-2' />
             Copy id
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => router.push(`/${params.storeId}/sizes/${data.id}`)}>
+          <DropdownMenuItem
+            onClick={() => router.push(`/${params.storeId}/sizes/${data.id}`)}
+          >
             <Edit className='h-4 w-4 mr-2' />
             Update
           </DropdownMenuItem>

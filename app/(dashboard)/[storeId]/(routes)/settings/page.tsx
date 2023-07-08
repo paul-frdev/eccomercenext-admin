@@ -4,33 +4,28 @@ import { auth } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 import { FC } from 'react';
 
-
 interface SettingsPageProps {
   params: {
-    storeId: string
-  }
+    storeId: string;
+  };
 }
 const SettingsPage: FC<SettingsPageProps> = async ({ params }) => {
-
-  const { userId } = auth()
-
+  const { userId } = auth();
 
   if (!userId) {
-    redirect('/sign-in')
+    redirect('/sign-in');
   }
 
   const store = await prismadb.store.findFirst({
     where: {
       id: params.storeId,
-      userId
-    }
-  })
+      userId,
+    },
+  });
 
   if (!store) {
-    redirect('/')
+    redirect('/');
   }
-
-
 
   return (
     <div className='flex-col'>
@@ -38,7 +33,7 @@ const SettingsPage: FC<SettingsPageProps> = async ({ params }) => {
         <SettingsForm initialData={store} />
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default SettingsPage;

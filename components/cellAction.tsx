@@ -22,18 +22,17 @@ interface CellActionProps {
 }
 
 export const CellAction: FC<CellActionProps> = ({ data }) => {
-
   const router = useRouter();
   const params = useParams();
 
   const [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const onCopy = (id: string) => {
-    navigator.clipboard.writeText(id)
+    navigator.clipboard.writeText(id);
 
-    toast.success('Billboard id copied to the clipboard')
-  }
+    toast.success('Billboard id copied to the clipboard');
+  };
 
   const onDelete = async () => {
     try {
@@ -48,7 +47,6 @@ export const CellAction: FC<CellActionProps> = ({ data }) => {
       setOpen(false);
     }
   };
-
 
   return (
     <>
@@ -71,7 +69,11 @@ export const CellAction: FC<CellActionProps> = ({ data }) => {
             <Copy className='h-4 w-4 mr-2' />
             Copy id
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => router.push(`/${params.storeId}/billboards/${data.id}`)}>
+          <DropdownMenuItem
+            onClick={() =>
+              router.push(`/${params.storeId}/billboards/${data.id}`)
+            }
+          >
             <Edit className='h-4 w-4 mr-2' />
             Update
           </DropdownMenuItem>

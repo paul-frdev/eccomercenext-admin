@@ -32,9 +32,8 @@ interface BillboardFormProps {
 
 const formSchema = z.object({
   label: z.string().min(1),
-  imageUrl: z.string().min(1)
+  imageUrl: z.string().min(1),
 });
-
 
 export const BillboardForm: FC<BillboardFormProps> = ({ initialData }) => {
   const params = useParams();
@@ -50,26 +49,27 @@ export const BillboardForm: FC<BillboardFormProps> = ({ initialData }) => {
   const toastMessage = initialData ? 'Billboard updated' : 'Billboard created';
   const action = initialData ? 'Save changes' : 'Create';
 
-
-
   const form = useForm<BillboardFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
       label: '',
-      imageUrl: ''
-    }
+      imageUrl: '',
+    },
   });
 
   const onSubmit = async (data: BillboardFormValues) => {
     try {
       setLoading(true);
       if (initialData) {
-        await axios.patch(`/api/${params.storeId}/billboards/${params.billboardId}`, data);
+        await axios.patch(
+          `/api/${params.storeId}/billboards/${params.billboardId}`,
+          data
+        );
       } else {
         await axios.post(`/api/${params.storeId}/billboards`, data);
       }
       router.refresh();
-      router.push(`/${params.storeId}/billboards`)
+      router.push(`/${params.storeId}/billboards`);
       toast.success(toastMessage);
     } catch (error) {
       toast.error('Something went wrong');
@@ -81,7 +81,9 @@ export const BillboardForm: FC<BillboardFormProps> = ({ initialData }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`);
+      await axios.delete(
+        `/api/${params.storeId}/billboards/${params.billboardId}`
+      );
       router.refresh();
       router.push(`${params.storeId}/billboards`);
       toast.success('Billboard deleted.');
@@ -125,7 +127,9 @@ export const BillboardForm: FC<BillboardFormProps> = ({ initialData }) => {
             name='imageUrl'
             render={({ field }) => (
               <FormItem>
-                <FormLabel><label>Background image</label></FormLabel>
+                <FormLabel>
+                  <label>Background image</label>
+                </FormLabel>
                 <FormControl>
                   <ImageUpload
                     value={field.value ? [field.value] : []}
@@ -144,7 +148,9 @@ export const BillboardForm: FC<BillboardFormProps> = ({ initialData }) => {
               name='label'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel><label>Label</label></FormLabel>
+                  <FormLabel>
+                    <label>Label</label>
+                  </FormLabel>
                   <FormControl>
                     <Input
                       disabled={loading}
