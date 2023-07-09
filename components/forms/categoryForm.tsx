@@ -172,7 +172,7 @@ export const CategoryForm: FC<CategoryFormProps> = ({
                     </FormControl>
                     <SelectContent>
                       {billboards.map((billboard) => (
-                        <SelectItem value={billboard.id} key={billboard.label}>
+                        <SelectItem value={billboard.id} key={billboard.id}>
                           {billboard.label}
                         </SelectItem>
                       ))}
