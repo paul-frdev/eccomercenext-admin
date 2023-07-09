@@ -1,8 +1,9 @@
+import React from 'react';
+import prismadb from '@/lib/prismadb';
+
 import { SizeClient } from '@/components/sizeClient';
 import { SizeColumn } from '@/components/sizeColumns';
-import prismadb from '@/lib/prismadb';
 import { format } from 'date-fns';
-import React from 'react';
 
 const SizesPage = async ({ params }: { params: { storeId: string } }) => {
   const sizes = await prismadb.size.findMany({

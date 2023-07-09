@@ -1,8 +1,9 @@
-import { SettingsForm } from '@/components/forms/settingsForm';
+import { FC } from 'react';
 import prismadb from '@/lib/prismadb';
+
+import { SettingsForm } from '@/components/forms/settingsForm';
 import { auth } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
-import { FC } from 'react';
 
 interface SettingsPageProps {
   params: {

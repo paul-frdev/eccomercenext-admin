@@ -1,7 +1,8 @@
 'use client';
+import React, { FC, useState } from 'react';
+import axios from 'axios';
 
 import { Billboard } from '@prisma/client';
-import React, { FC, useState } from 'react';
 import { Heading } from '../heading';
 import { Button } from '../ui/button';
 import { Trash } from 'lucide-react';
@@ -19,7 +20,6 @@ import {
 } from '../ui/form';
 import { Input } from '../ui/input';
 import { toast } from 'react-hot-toast';
-import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
 import { AlertModal } from '../modals/alertModal';
 import { ImageUpload } from '../imageUpload';

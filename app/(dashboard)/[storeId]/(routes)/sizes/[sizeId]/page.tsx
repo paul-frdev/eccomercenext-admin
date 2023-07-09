@@ -1,6 +1,6 @@
-import { BillboardForm } from '@/components/forms/billboardForm';
-import { SizeForm } from '@/components/forms/sizeForm';
 import prismadb from '@/lib/prismadb';
+
+import { SizeForm } from '@/components/forms/sizeForm';
 
 const SizePage = async ({ params }: { params: { sizeId: string } }) => {
   const size = (await prismadb.size.findUnique({

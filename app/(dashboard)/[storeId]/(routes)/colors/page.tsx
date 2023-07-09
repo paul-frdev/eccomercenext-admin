@@ -1,8 +1,9 @@
+import React from 'react';
+import prismadb from '@/lib/prismadb';
+
 import { ColorsClient } from '@/components/colorsClient';
 import { SizeColumn } from '@/components/sizeColumns';
-import prismadb from '@/lib/prismadb';
 import { format } from 'date-fns';
-import React from 'react';
 
 const ColorsPage = async ({ params }: { params: { colorId: string } }) => {
   const colors = await prismadb.color.findMany({
