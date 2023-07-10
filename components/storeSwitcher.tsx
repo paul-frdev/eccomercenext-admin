@@ -1,10 +1,14 @@
 'use client';
 import React, { useState } from 'react';
-import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 import { Store } from '@prisma/client';
 import { useStoreModal } from '@/hooks/useStoreModal';
 import { useParams, useRouter } from 'next/navigation';
-import { Button } from './ui/button';
+import { Button } from '@/components/ui/button';
 import {
   Check,
   ChevronsUpDown,

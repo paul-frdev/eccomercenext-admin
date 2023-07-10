@@ -8,8 +8,8 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from './ui/dropdown-menu';
-import { Button } from './ui/button';
+} from '@/components/ui/dropdown-menu';
+import { Button } from '@/components/ui/button';
 import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { useParams, useRouter } from 'next/navigation';
@@ -57,7 +57,7 @@ export const CellAction: FC<CellActionProps> = ({ data }) => {
         loading={loading}
       />
       <DropdownMenu>
-        <DropdownMenuTrigger>
+        <DropdownMenuTrigger asChild>
           <Button variant='ghost' className='h-8 w-8 p-0'>
             <span className='sr-only'>Open menu</span>
             <MoreHorizontal className='h-4 w-4' color='black' />

@@ -13,7 +13,7 @@ export const useOrigin = () => {
   }, []);
 
   if (!isMounted) {
-    return null;
+    return '';
   }
 
   return origin;

@@ -4,9 +4,9 @@ import React, { FC } from 'react';
 import { Heading } from './heading';
 import { ColorColumn, colorColumns } from './colorColumns';
 import { useParams, useRouter } from 'next/navigation';
-import { Button } from './ui/button';
+import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
-import { Separator } from './ui/separator';
+import { Separator } from '@/components/ui/separator';
 import { DataTable } from './dataTable';
 import { ApiList } from './apiList';
 

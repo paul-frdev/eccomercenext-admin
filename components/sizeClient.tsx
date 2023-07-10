@@ -4,7 +4,7 @@ import React, { FC } from 'react';
 import { SizeColumn, sizeColumns } from './sizeColumns';
 import { useParams, useRouter } from 'next/navigation';
 import { Heading } from './heading';
-import { Button } from './ui/button';
+import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import { Separator } from '@radix-ui/react-separator';
 import { DataTable } from './dataTable';

@@ -1,5 +1,6 @@
-import React, { FC } from 'react';
+'use client';
 
+import React, { FC } from 'react';
 interface HeadingProps {
   title: string;
   description: string;
