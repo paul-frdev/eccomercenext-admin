@@ -106,20 +106,20 @@ export async function PATCH(
         categoryId,
         storeId: params.storeId,
         images: {
-          createMany: {
-            data: [...images.map((image: { url: string }) => image)],
-          },
+          deleteMany: {},
         },
       },
     });
 
-    const product = prismadb.product.update({
+    const product = await prismadb.product.update({
       where: {
         id: params.productId,
       },
       data: {
         images: {
-          deleteMany: {},
+          createMany: {
+            data: [...images.map((image: { url: string }) => image)],
+          },
         },
       },
     });
