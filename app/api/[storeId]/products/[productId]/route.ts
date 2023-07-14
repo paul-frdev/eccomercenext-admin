@@ -40,11 +40,15 @@ export async function PATCH(
 
     const {
       name,
+      description,
+      options,
       price,
+      priceDiscount,
       categoryId,
       sizeId,
       colorId,
       images,
+      isDiscount,
       isFeatured,
       isArchived,
     } = body;
@@ -55,6 +59,13 @@ export async function PATCH(
 
     if (!name) {
       return new NextResponse('Name is required', { status: 400 });
+    }
+
+    if (!description) {
+      return new NextResponse('Description is required', { status: 400 });
+    }
+    if (!options) {
+      return new NextResponse('Options is required', { status: 400 });
     }
 
     if (!images || !images.length) {
@@ -98,9 +109,13 @@ export async function PATCH(
       },
       data: {
         name,
+        description,
+        options,
         price,
+        priceDiscount,
         isFeatured,
         isArchived,
+        isDiscount,
         colorId,
         sizeId,
         categoryId,

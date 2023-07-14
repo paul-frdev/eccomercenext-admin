@@ -6,12 +6,16 @@ import { ProductCellAction } from './productCellAction';
 export type ProductColumnProps = {
   id: string;
   name: string;
+  description: string;
+  options: string;
+  priceDiscount: string;
   price: string;
   size: string;
   category: string;
   color: string;
   isFeatured: boolean;
   isArchived: boolean;
+  isDiscount: boolean;
   createdAt: string;
 };
 
@@ -19,6 +23,14 @@ export const productsColumn: ColumnDef<ProductColumnProps>[] = [
   {
     accessorKey: 'name',
     header: 'Name',
+  },
+  {
+    accessorKey: 'description',
+    header: 'Description',
+  },
+  {
+    accessorKey: 'options',
+    header: 'Options',
   },
   {
     accessorKey: 'isArchived',
@@ -29,8 +41,16 @@ export const productsColumn: ColumnDef<ProductColumnProps>[] = [
     header: 'Featured',
   },
   {
+    accessorKey: 'isDiscount',
+    header: 'Discount',
+  },
+  {
     accessorKey: 'price',
     header: 'Price',
+  },
+  {
+    accessorKey: 'priceDiscount',
+    header: 'Discount',
   },
   {
     accessorKey: 'category',

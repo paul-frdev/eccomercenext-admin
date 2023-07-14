@@ -23,9 +23,13 @@ const ProductsPage = async ({ params }: { params: { storeId: string } }) => {
   const formattedProducts: any[] = products.map((item) => ({
     id: item.id,
     name: item.name,
+    description: item.description.length ? true : false,
+    options: item.options.length ? true : false,
     isFeatured: item.isFeatured,
     isArchived: item.isArchived,
+    isDiscount: item.isDiscount,
     price: formattedPrice.format(+item.price),
+    priceDiscount: `${item.priceDiscount}%`,
     category: item.category.name,
     size: item.size.name,
     color: item.color.value,

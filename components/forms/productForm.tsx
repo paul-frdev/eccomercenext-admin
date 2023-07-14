@@ -32,15 +32,16 @@ import {
   SelectValue,
 } from '../ui/select';
 import { Checkbox } from '../ui/checkbox';
+import { Textarea } from '../ui/textarea';
 
 type ProductFormValues = z.infer<typeof formSchema>;
 
 interface ProductFormProps {
   initialData:
-    | (Product & {
-        images: Image[];
-      })
-    | null;
+  | (Product & {
+    images: Image[];
+  })
+  | null;
   categories: Category[];
   sizes: Size[];
   colors: Color[];
@@ -48,13 +49,17 @@ interface ProductFormProps {
 
 const formSchema = z.object({
   name: z.string().min(1),
+  description: z.string().min(100),
+  options: z.string().min(100),
   images: z.object({ url: z.string() }).array(),
   price: z.coerce.number().min(1),
+  priceDiscount: z.coerce.number().min(0).max(100),
   categoryId: z.string().min(1),
   colorId: z.string().min(1),
   sizeId: z.string().min(1),
   isFeatured: z.boolean().default(false).optional(),
   isArchived: z.boolean().default(false).optional(),
+  isDiscount: z.boolean().default(false).optional()
 });
 
 export const ProductForm: FC<ProductFormProps> = ({
@@ -77,17 +82,21 @@ export const ProductForm: FC<ProductFormProps> = ({
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData
-      ? { ...initialData, price: parseFloat(String(initialData?.price)) }
+      ? { ...initialData, price: parseFloat(String(initialData?.price)), priceDiscount: parseFloat(String(initialData?.priceDiscount)) }
       : {
-          name: '',
-          images: [],
-          price: 0,
-          categoryId: '',
-          colorId: '',
-          sizeId: '',
-          isFeatured: false,
-          isArchived: false,
-        },
+        name: '',
+        description: '',
+        options: '',
+        images: [],
+        price: 0,
+        priceDiscount: 0,
+        categoryId: '',
+        colorId: '',
+        sizeId: '',
+        isDiscount: false,
+        isFeatured: false,
+        isArchived: false,
+      },
   });
 
   const onSubmit = async (data: ProductFormValues) => {
@@ -223,6 +232,26 @@ export const ProductForm: FC<ProductFormProps> = ({
             />
             <FormField
               control={form.control}
+              name='priceDiscount'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    <label>Discount</label>
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      type='number'
+                      disabled={loading}
+                      placeholder='0'
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name='categoryId'
               render={({ field }) => (
                 <FormItem>
@@ -325,6 +354,36 @@ export const ProductForm: FC<ProductFormProps> = ({
             />
             <FormField
               control={form.control}
+              name='description'
+              render={({ field }) => (
+                <FormItem className='col-span-3 flex flex-row items-start space-x-3 space-y-0 rounded-md border'>
+                  <FormControl>
+                    <Textarea
+                      placeholder='description'
+                      disabled={loading}
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name='options'
+              render={({ field }) => (
+                <FormItem className='col-span-3 flex flex-row items-start space-x-3 space-y-0 rounded-md border'>
+                  <FormControl>
+                    <Textarea
+                      placeholder='Options'
+                      disabled={loading}
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name='isFeatured'
               render={({ field }) => (
                 <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
@@ -339,6 +398,27 @@ export const ProductForm: FC<ProductFormProps> = ({
                     <FormLabel>Featured</FormLabel>
                     <FormDescription>
                       This product will appear on the home page
+                    </FormDescription>
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name='isDiscount'
+              render={({ field }) => (
+                <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      //@ts-ignore
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className='space-y-1 leading-none'>
+                    <FormLabel>IsDiscount</FormLabel>
+                    <FormDescription>
+                      This product will appear on discount carousel
                     </FormDescription>
                   </div>
                 </FormItem>
