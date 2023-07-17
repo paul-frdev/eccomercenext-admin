@@ -32,6 +32,11 @@ export function MainNav({
       active: pathname === `/${params.storeId}/sizes`,
     },
     {
+      href: `/${params.storeId}/weights`,
+      label: 'Weights',
+      active: pathname === `/${params.storeId}/weights`,
+    },
+    {
       href: `/${params.storeId}/colors`,
       label: 'Colors',
       active: pathname === `/${params.storeId}/colors`,

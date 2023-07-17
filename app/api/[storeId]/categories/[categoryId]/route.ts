@@ -35,7 +35,7 @@ export async function PATCH(
     const { userId } = auth();
     const body = await req.json();
 
-    const { name, billboardId } = body;
+    const { name, imageUrl, billboardId } = body;
 
     if (!name) {
       return new NextResponse('Name is required', { status: 400 });
@@ -69,6 +69,7 @@ export async function PATCH(
       },
       data: {
         name,
+        imageUrl,
         billboardId,
       },
     });

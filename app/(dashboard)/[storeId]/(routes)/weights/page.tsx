@@ -1,12 +1,12 @@
 import React from 'react';
 import prismadb from '@/lib/prismadb';
 
-import { SizeClient } from '@/components/sizeClient';
 import { SizeColumn } from '@/components/sizeColumns';
 import { format } from 'date-fns';
+import { WeightClient } from '@/components/weightsClient';
 
 const SizesPage = async ({ params }: { params: { storeId: string } }) => {
-  const sizes = await prismadb.size.findMany({
+  const weights = await prismadb.weight.findMany({
     where: {
       storeId: params.storeId,
     },
@@ -15,7 +15,7 @@ const SizesPage = async ({ params }: { params: { storeId: string } }) => {
     },
   });
 
-  const formattedSizes: SizeColumn[] = sizes.map((item) => ({
+  const formattedWeights: SizeColumn[] = weights.map((item) => ({
     id: item.id,
     name: item.name,
     value: item.value,
@@ -24,7 +24,7 @@ const SizesPage = async ({ params }: { params: { storeId: string } }) => {
   return (
     <div className='flex-col'>
       <div className='flex-1 space-y-4 p-8 pt-0 mt-20'>
-        <SizeClient data={formattedSizes} />
+        <WeightClient data={formattedWeights} />
       </div>
     </div>
   );

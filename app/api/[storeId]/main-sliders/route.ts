@@ -31,10 +31,10 @@ export async function POST(
   try {
     const { userId } = auth();
     const body = await req.json();
-    const { label, images } = body;
+    const { title, images } = body;
 
-    if (!label) {
-      return new NextResponse('Label is required', { status: 400 });
+    if (!title) {
+      return new NextResponse('Title is required', { status: 400 });
     }
 
     if (!images || !images.length) {
@@ -62,7 +62,7 @@ export async function POST(
 
     const mainSlider = await prismadb.mainSlider.create({
       data: {
-        label,
+        title,
         storeId: params.storeId,
         images: {
           createMany: {

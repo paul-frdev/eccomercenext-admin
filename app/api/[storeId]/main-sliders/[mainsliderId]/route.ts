@@ -32,10 +32,10 @@ export async function PATCH(
     const { userId } = auth();
     const body = await req.json();
 
-    const { label, images } = body;
+    const { title, images } = body;
 
-    if (!label) {
-      return new NextResponse('Label is required', { status: 400 });
+    if (!title) {
+      return new NextResponse('Title is required', { status: 400 });
     }
 
     if (!images || !images.length) {
@@ -66,7 +66,7 @@ export async function PATCH(
         id: params.mainsliderId,
       },
       data: {
-        label,
+        title,
         images: {
           deleteMany: {},
         },
@@ -78,7 +78,7 @@ export async function PATCH(
         id: params.mainsliderId,
       },
       data: {
-        label,
+        title,
         images: {
           createMany: {
             data: images.map((image: { url: string }) => ({ url: image.url })),

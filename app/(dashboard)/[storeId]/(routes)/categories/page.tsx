@@ -22,12 +22,13 @@ const CategoriesPage = async ({ params }: { params: { storeId: string } }) => {
     id: item.id,
     name: item.name,
     billboardLabel: item.billboard.label,
+    imageUrl: item.imageUrl.length ? true : false,
     createdAt: format(item.createdAt, 'MMMM do, yyyy'),
   }));
 
   return (
     <div className='flex-col'>
-      <div className='flex-1 space-y-4 p-8 pt-6'>
+      <div className='flex-1 space-y-4 p-8 pt-0 mt-20'>
         <CategoryClient data={formattedCategories} />
       </div>
     </div>

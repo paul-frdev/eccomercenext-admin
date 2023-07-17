@@ -19,6 +19,7 @@ model Store {
   categories  Category[]   @relation("StoreToCategory")
   sizes       Size[]       @relation("StoreToSize")
   colors      Color[]      @relation("StoreToColor")
+  weights     Weight[]     @relation("StoreToWeight")
   products    Product[]    @relation("StoreToProduct")
   orders      Order[]      @relation("storeToOrder")
   mainSliders MainSlider[] @relation("StoreToMainSlider")
@@ -41,7 +42,7 @@ model Billboard {
 
 model MainSlider {
   id        String   @id @default(uuid())
-  label     String
+  title     String
   storeId   String
   store     Store    @relation("StoreToMainSlider", fields: [storeId], references: [id])
   images    Image[]
@@ -55,6 +56,7 @@ model Category {
   id          String    @id @default(uuid())
   storeId     String
   billboardId String
+  imageUrl    String
   store       Store     @relation("StoreToCategory", fields: [storeId], references: [id])
   billboard   Billboard @relation(fields: [billboardId], references: [id])
   products    Product[] @relation("CategoryToProduct")
@@ -70,6 +72,19 @@ model Size {
   id        String    @id @default(uuid())
   storeId   String
   store     Store     @relation("StoreToSize", fields: [storeId], references: [id])
+  name      String
+  value     String
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([storeId])
+}
+
+model Weight {
+  id        String    @id @default(uuid())
+  storeId   String
+  store     Store     @relation("StoreToWeight", fields: [storeId], references: [id])
   name      String
   value     String
   products  Product[]
@@ -114,11 +129,14 @@ model Product {
   orderItems    OrderItem[]
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
+  weightId      String?
+  weight        Weight?     @relation(fields: [weightId], references: [id])
 
   @@index([storeId])
   @@index([categoryId])
   @@index([sizeId])
   @@index([colorId])
+  @@index([weightId])
 }
 
 model Image {

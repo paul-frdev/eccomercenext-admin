@@ -20,13 +20,13 @@ const MainSlidersPage = async ({ params }: { params: { storeId: string } }) => {
 
   const formattedMainSliders: MainSliderColumn[] = mainSliders.map((item) => ({
     id: item.id,
-    label: item.label,
+    title: item.title,
     images: item.images.length,
     createdAt: format(item.createdAt, 'MMMM do, yyyy'),
   }));
   return (
     <div className='flex-col'>
-      <div className='flex-1 space-y-4 p-8 pt-6'>
+      <div className='flex-1 space-y-4 p-8 pt-0 mt-20'>
         <MainSliderClient data={formattedMainSliders} />
       </div>
     </div>

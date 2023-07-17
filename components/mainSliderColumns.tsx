@@ -6,14 +6,14 @@ import { MainSlidersCellAction } from './mainSlidersCellAction';
 export type MainSliderColumn = {
   id: string;
   images: number;
-  label: string;
+  title: string;
   createdAt: string;
 };
 
 export const mainSliderColumns: ColumnDef<MainSliderColumn>[] = [
   {
-    accessorKey: 'label',
-    header: 'Label',
+    accessorKey: 'title',
+    header: 'Title',
   },
   {
     accessorKey: 'images',

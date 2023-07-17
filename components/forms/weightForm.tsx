@@ -1,6 +1,6 @@
 'use client';
 
-import { Billboard, Category } from '@prisma/client';
+import { Size } from '@prisma/client';
 import React, { FC, useState } from 'react';
 import { Heading } from '../heading';
 import { Button } from '../ui/button';
@@ -22,64 +22,51 @@ import { toast } from 'react-hot-toast';
 import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
 import { AlertModal } from '../modals/alertModal';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '../ui/select';
-import { ImageUpload } from '../imageUpload';
 
 const formSchema = z.object({
   name: z.string().min(1),
-  billboardId: z.string().min(1),
-  imageUrl: z.string().min(1)
+  value: z.string().min(1),
 });
-type CategoryFormValues = z.infer<typeof formSchema>;
 
-interface CategoryFormProps {
-  initialData: Category | null;
-  billboards: Billboard[];
+type WeightFormValues = z.infer<typeof formSchema>;
+
+interface WeightFormProps {
+  initialData: Size | null;
 }
 
-export const CategoryForm: FC<CategoryFormProps> = ({
-  initialData,
-  billboards,
-}) => {
+export const WeightForm: FC<WeightFormProps> = ({ initialData }) => {
   const params = useParams();
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const form = useForm<CategoryFormValues>({
+  const title = initialData ? 'Edit Size' : 'Create Size';
+  const description = initialData ? 'Edit Size' : 'Create a new Size';
+  const toastMessage = initialData ? 'Size updated' : 'Size created';
+  const action = initialData ? 'Save changes' : 'Create';
+
+  const form = useForm<WeightFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
       name: '',
-      billboardId: '',
-      imageUrl: ''
+      value: '',
     },
   });
 
-  const title = initialData ? 'Edit Category' : 'Create Category';
-  const description = initialData ? 'Edit Category' : 'Create a new Category';
-  const toastMessage = initialData ? 'Category updated' : 'Category created';
-  const action = initialData ? 'Save changes' : 'Create';
-
-  const onSubmit = async (data: CategoryFormValues) => {
+  const onSubmit = async (data: WeightFormValues) => {
     try {
       setLoading(true);
       if (initialData) {
         await axios.patch(
-          `/api/${params.storeId}/categories/${params.categoryId}`,
+          `/api/${params.storeId}/weights/${params.sizeId}`,
           data
         );
       } else {
-        await axios.post(`/api/${params.storeId}/categories`, data);
+        await axios.post(`/api/${params.storeId}/weights`, data);
       }
       router.refresh();
-      router.push(`/${params.storeId}/categories`);
+      router.push(`/${params.storeId}/weights`);
       toast.success(toastMessage);
     } catch (error) {
       toast.error('Something went wrong');
@@ -91,19 +78,18 @@ export const CategoryForm: FC<CategoryFormProps> = ({
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(
-        `/api/${params.storeId}/categories/${params.categoryId}`
-      );
+      await axios.delete(`/api/${params.storeId}/weights/${params.sizeId}`);
       router.refresh();
-      router.push(`${params.storeId}/categories`);
-      toast.success('Category deleted.');
+      router.push(`${params.storeId}/weights`);
+      toast.success('Weight deleted.');
     } catch (error) {
-      toast.error('Make sure you removed all products this billboard');
+      toast.error('Make sure you removed all categories using this size first');
     } finally {
       setLoading(false);
       setOpen(false);
     }
   };
+
   return (
     <>
       <AlertModal
@@ -131,27 +117,7 @@ export const CategoryForm: FC<CategoryFormProps> = ({
           onSubmit={form.handleSubmit(onSubmit)}
           className='space-y-8 w-full mb-4'
         >
-          <div className='grid grid-cols-2 gap-8'>
-            <FormField
-              control={form.control}
-              name='imageUrl'
-              render={({ field }) => (
-                <FormItem className='col-span-3'>
-                  <FormLabel>
-                    <label>Background image</label>
-                  </FormLabel>
-                  <FormControl>
-                    <ImageUpload
-                      value={field.value ? [field.value] : []}
-                      disabled={loading}
-                      onChange={(url) => field.onChange(url)}
-                      onRemove={() => field.onChange('')}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <div className='grid grid-cols-3 gap-8'>
             <FormField
               control={form.control}
               name='name'
@@ -163,7 +129,7 @@ export const CategoryForm: FC<CategoryFormProps> = ({
                   <FormControl>
                     <Input
                       disabled={loading}
-                      placeholder='Category name'
+                      placeholder='Size name'
                       {...field}
                     />
                   </FormControl>
@@ -173,34 +139,19 @@ export const CategoryForm: FC<CategoryFormProps> = ({
             />
             <FormField
               control={form.control}
-              name='billboardId'
+              name='value'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    <label>billboard</label>
+                    <label>Value</label>
                   </FormLabel>
-                  <Select
-                    disabled={loading}
-                    onValueChange={field.onChange}
-                    value={field.value}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue
-                          defaultValue={field.value}
-                          placeholder='Select a billboard'
-                        />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {billboards.map((billboard) => (
-                        <SelectItem value={billboard.id} key={billboard.id}>
-                          {billboard.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <FormControl>
+                    <Input
+                      disabled={loading}
+                      placeholder='Size value'
+                      {...field}
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}

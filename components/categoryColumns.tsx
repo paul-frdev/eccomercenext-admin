@@ -7,6 +7,7 @@ import { CategoriesCellAction } from './categoryCellAction';
 export interface CategoryColumn {
   id: string;
   name: string;
+  imageUrl?: boolean;
   billboardLabel: string;
   createdAt: string;
 }
@@ -14,6 +15,10 @@ export const categoryColumns: ColumnDef<CategoryColumn>[] = [
   {
     accessorKey: 'name',
     header: 'Name',
+  },
+  {
+    accessorKey: 'imageUrl',
+    header: 'Image',
   },
   {
     accessorKey: 'billboard',

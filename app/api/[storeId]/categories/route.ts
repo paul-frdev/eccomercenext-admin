@@ -31,7 +31,7 @@ export async function POST(
   try {
     const { userId } = auth();
     const body = await req.json();
-    const { name, billboardId } = body;
+    const { name, billboardId, imageUrl } = body;
 
     if (!name) {
       return new NextResponse('Name is required', { status: 400 });
@@ -39,6 +39,10 @@ export async function POST(
 
     if (!billboardId) {
       return new NextResponse('BillboardId is required', { status: 400 });
+    }
+
+    if (!imageUrl) {
+      return new NextResponse('imageUrl is required', { status: 400 });
     }
 
     if (!userId) {
@@ -64,6 +68,7 @@ export async function POST(
       data: {
         name,
         billboardId,
+        imageUrl,
         storeId: params.storeId,
       },
     });
