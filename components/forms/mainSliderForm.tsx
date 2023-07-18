@@ -2,7 +2,7 @@
 import React, { FC, useState } from 'react';
 import axios from 'axios';
 
-import { Billboard, Image, MainSlider } from '@prisma/client';
+import { Image, MainSlider } from '@prisma/client';
 import { Heading } from '../heading';
 import { Button } from '../ui/button';
 import { Trash } from 'lucide-react';
@@ -33,7 +33,7 @@ interface MainSliderFormProps {
 }
 
 const formSchema = z.object({
-  label: z.string().min(1),
+  title: z.string().min(1),
   images: z.object({ url: z.string() }).array()
 });
 
@@ -52,7 +52,7 @@ export const MainSliderForm: FC<MainSliderFormProps> = ({ initialData }) => {
   const form = useForm<MainSliderFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
-      label: '',
+      title: '',
       images: [],
     },
   });
@@ -153,16 +153,16 @@ export const MainSliderForm: FC<MainSliderFormProps> = ({ initialData }) => {
           <div className='grid grid-cols-3 gap-8'>
             <FormField
               control={form.control}
-              name='label'
+              name='title'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    <label>Label</label>
+                    <label>Title</label>
                   </FormLabel>
                   <FormControl>
                     <Input
                       disabled={loading}
-                      placeholder='Billboard label'
+                      placeholder='Slides title'
                       {...field}
                     />
                   </FormControl>

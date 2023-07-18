@@ -15,6 +15,9 @@ export async function GET(
       where: {
         id: params.mainsliderId,
       },
+      include: {
+        images: true,
+      },
     });
 
     return NextResponse.json(mainSlider);

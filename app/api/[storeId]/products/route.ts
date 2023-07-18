@@ -57,6 +57,7 @@ export async function POST(
       description,
       options,
       price,
+      weight,
       priceDiscount,
       categoryId,
       sizeId,
@@ -132,7 +133,7 @@ export async function POST(
         storeId: params.storeId,
         images: {
           createMany: {
-            data: [...images.map((image: { url: string }) => image)],
+            data: images.map((image: { url: string, mainSliderId: string }) => ({ url: image.url })),
           },
         },
       },
